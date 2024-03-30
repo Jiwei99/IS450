@@ -1,4 +1,7 @@
 import gradio as gr
+from dotenv import load_dotenv
+load_dotenv()
+
 from info_extraction.ie_spacy import spacy_info_ext
 from info_extraction.ie_rules import rules_info_ext
 from info_extraction.ie_stanford import stanford_info_ext

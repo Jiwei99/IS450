@@ -1,12 +1,13 @@
-# IS450 (Text Mining and Language Processing) Project
+# IS450 (Text Mining & Language Processing) Project
 
 ## Description
-This project contains the code for the IS450_CS4248 project. It is a [brief description of your project].
+This project contains the code for the IS450 Text Mining & Language Processing project.
 
 ## Project Structure
 
 ### Frontend Web Portal
-- The frontend web portal is encapsulated within the `app.py` file. It consists of the code needed to generate and run the webpage, powered by `Gradio`, a Python library that allows the quick creation of customizable web apps for machine learning models and data processing pipelines
+- The frontend web portal is encapsulated within the `app.py` file. It consists of the code needed to generate and run the webpage, powered by `Gradio`, a Python library that allows the quick creation of customizable web apps for machine learning models and data processing pipelines.
+- In addition, the `sentiment_analysis/sentiment_analysis_demo.py` file is a supplementary file to generate the necessary components to display the sentiment analysis.
 
 ### Utilities
 - The utilities required for this project are encapsulated within the `utils.py` file. The main utilities included are functions that are required to pre-process the Twitter tweets.

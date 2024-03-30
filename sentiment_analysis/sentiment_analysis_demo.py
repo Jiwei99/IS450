@@ -1,6 +1,7 @@
 import gradio as gr
+import os
 
-img_path = "./sentiment_analysis/images"
+img_path = os.getenv("SENT_ANALY_IMG_PATH")
 overall_senti_barchart = "overall_senti_barchart.png"
 senti_VICustomerCare = "senti_VICustomerCare.png"
 senti_event_IPLAUCTION = "senti_event_IPLAUCTION.png"

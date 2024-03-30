@@ -3,12 +3,12 @@ from nltk.tag import StanfordNERTagger
 from collections import defaultdict
 import gradio as gr
 from spacy import displacy
+import os
 
 from utils import data_cleaning
 
-stanford_ner_path = './stanford-ner-2020-11-17'
-jar_path = stanford_ner_path + '/stanford-ner.jar'
-model_path = stanford_ner_path + '/classifiers/english.all.3class.distsim.crf.ser.gz'
+jar_path = os.getenv("STANFORD_NER_PATH") + os.getenv("STANFORD_NER_JAR")
+model_path = os.getenv("STANFORD_NER_PATH") + os.getenv("STANFORD_NER_MODEL")
 
 
 ner_tagger = StanfordNERTagger(model_path, jar_path, encoding='utf-8')
