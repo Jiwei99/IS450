@@ -3,6 +3,12 @@
 ## Description
 This project contains the code for the IS450 Text Mining & Language Processing project.
 
+## Dataset
+The IPL 2022 Twitter tweets dataset can be downloaded from `https://www.kaggle.com/datasets/kaushiksuresh147/ipl2020-tweets`
+
+## Additional Dependencies
+- The Stanford NER package is required to run the Stanford NER model for information extraction. The package can be downloaded from `https://nlp.stanford.edu/software/CRF-NER.shtml`. Once downloaded, place the package in the root directory of the project. Alternative, amend the `.env` file to reference the NER package.
+
 ## Project Structure
 
 ### Frontend Web Portal
@@ -29,7 +35,7 @@ This project contains the code for the IS450 Text Mining & Language Processing p
         - Removing special characters
 
 ### Sentiment Analysis
-- The `` file contains code used to generate the sentiments.
+- The `sentiment_analysis` file contains code used to generate the sentiments.
 
 ### Topic Modelling
 - The following files contains code for the following models:
