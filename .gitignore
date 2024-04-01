@@ -1,4 +1,10 @@
 data
-stanford-ner-2020-11-17
+
+stanford-ner-2020-11-17/*
+!stanford-ner-2020-11-17/stanford-ner.jar
+!stanford-ner-2020-11-17/classifiers
+stanford-ner-2020-11-17/classifiers/*
+!stanford-ner-2020-11-17/classifiers/english.all.3class.distsim.crf.ser.gz
+
 flagged
 .DS_Store

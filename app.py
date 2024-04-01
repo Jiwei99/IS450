@@ -2,14 +2,14 @@ import gradio as gr
 from dotenv import load_dotenv
 load_dotenv()
 
-from info_extraction.ie_spacy import spacy_info_ext
-from info_extraction.ie_rules import rules_info_ext
-from info_extraction.ie_stanford import stanford_info_ext
-from topic_modelling.lda_sklearn import lda_s_topic_model
-from topic_modelling.lda_gensim import lda_g_topic_model
-from topic_modelling.lsa_sklearn import lsa_s_topic_model
-from topic_modelling.nmf_sklearn import nmf_s_topic_model
-from sentiment_analysis.sentiment_analysis_demo import load_sentiment_analysis_demo
+from info_extraction.demo_ie_spacy import spacy_info_ext
+from info_extraction.demo_ie_rules import rules_info_ext
+from info_extraction.demo_ie_stanford import stanford_info_ext
+from topic_modelling.demo_lda_sklearn import lda_s_topic_model
+from topic_modelling.demo_lda_gensim import lda_g_topic_model
+from topic_modelling.demo_lsa_sklearn import lsa_s_topic_model
+from topic_modelling.demo_nmf_sklearn import nmf_s_topic_model
+from sentiment_analysis.demo_sentiment_analysis import load_sentiment_analysis_demo
 
 RULES_BASED = "Rules-Based"
 CNN_RNN = "CNN & RNN (SpaCy)"
