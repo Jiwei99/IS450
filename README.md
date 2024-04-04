@@ -35,7 +35,7 @@ The full IPL 2022 Twitter tweets dataset can be downloaded from `https://www.kag
         - Removing special characters
 
 ### Sentiment Analysis
-- The `sentiment_analysis` file contains code used to generate the sentiments.
+- The `sentiment_analysis.ipynb` file contains code used to generate the sentiments.
 
 ### Topic Modelling
 - The following files contains code for the following models:
@@ -43,13 +43,14 @@ The full IPL 2022 Twitter tweets dataset can be downloaded from `https://www.kag
     - `demo_lda_sklearn.py`: Use of `scikit-learn`'s LDA model
     - `demo_lsa_sklearn.py`: Use of `scikit-learn`'s LSA model
     - `demo_nmf_sklearn.py`: Use of `scikit-learn`'s NMF model
+- The file `topic_modelling.ipynb` contains code used to run, test and evaluate each model.
 
 ### Information Extraction
 - The following files contains code for the following models:
     - `ie_rules.py`: Use of custom rules-based NER model (Rules-Based)
     - `ie_spacy.py`: Use of `SpaCy`'s NER model (CNN & RNN)
     - `ie_stanford.py`: Use of `Stanford NER`'s NER model (CRF)
-- The file `ie_evaluation` contains the code and gold truth that was used to evaluate individual models
+- The file `ie_evaluation.ipynb` contains the code and gold truth that was used to evaluate individual models
 
 ## Installation
 1. Clone the repository: `git clone https://github.com/Jiwei99/is450.git`
