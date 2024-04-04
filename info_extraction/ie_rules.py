@@ -22,8 +22,8 @@ country_names = [country.name for country in pycountry.countries]
 class NERChunker(ChunkParserI):
     def __init__(self):
         self.chunk_parser = RegexpParser('''
-            Player: {<NNP><NNP|NNPS><NNP|NNPS>*}
-            Team: {<NNP><NNP|NNPS><NNP|NNPS>*}
+            Player: {<NNP|NNPS>+}
+            Team: {<NNP><NNP|NNPS>*}
         ''')
         self.annotated_data = [
             ("Chennai Super Kings", "Team"),
@@ -73,6 +73,9 @@ class NERChunker(ChunkParserI):
 def rules_info_ext(filepath):
     # Read csv file
     data_text = pd.read_csv(filepath)
+    return run_ie(data_text)
+
+def run_ie(data_text, eval=False):
 
     # Data Cleaning
     data_text = data_cleaning(data_text)
@@ -81,9 +84,11 @@ def rules_info_ext(filepath):
     entity_counter = Counter()
 
     displacy_data = []
+    eval_result = []
     for tweet in data_text["text"]:
         tagged_sentence = nltk.pos_tag(nltk.word_tokenize(tweet))
         classified_sentence = ner_chunker.parse(tagged_sentence)
+        eval_result.append(classified_sentence)
     
         display_sentence = []
         for entity, entity_type in classified_sentence:
@@ -99,6 +104,9 @@ def rules_info_ext(filepath):
             "ents": find_entity_positions(tweet, display_sentence),
             "title": None
         })
+
+    if eval:
+        return eval_result
         
     options = {"ents": ["PLAYER", "TEAM"], "colors": {"PLAYER": "lightgreen", "TEAM": "lightblue"}}
     display = displacy.render(displacy_data, style="ent", manual=True, options=options)

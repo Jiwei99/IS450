@@ -16,6 +16,9 @@ ner_tagger = StanfordNERTagger(model_path, jar_path, encoding='utf-8')
 def stanford_info_ext(filepath):
     # Read csv file
     data_text = pd.read_csv(filepath)
+    return run_ie(data_text)
+
+def run_ie(data_text, eval=False):
 
     # Data Cleaning
     data_text = data_cleaning(data_text)
@@ -24,8 +27,12 @@ def stanford_info_ext(filepath):
     total_team_counts = defaultdict(int)
 
     display_data = []
-    for tweet in gr.Progress().tqdm(data_text["text"]):
-        player_counts, team_counts, ents = extract_entities(tweet)
+    eval_result = []
+
+    iterator = data_text["text"] if eval else gr.Progress().tqdm(data_text["text"])
+    for tweet in iterator:
+        player_counts, team_counts, entities, ents = extract_entities(tweet)
+        eval_result.append(entities)
         for player, count in player_counts.items():
             total_player_counts[player] += count
         for team, count in team_counts.items():
@@ -36,8 +43,11 @@ def stanford_info_ext(filepath):
             "ents": ents,
             "title": None
         })
+    
+    if eval:
+        return eval_result
 
-    options = {"ents": ["ORGANISATION", "PERSON"], "colors": {"PERSON": "lightgreen", "ORGANISATION": "lightblue"}}
+    options = {"ents": ["Team", "Player"], "colors": {"Player": "lightgreen", "Team": "lightblue"}}
     display = displacy.render(display_data, style="ent", manual=True, options=options)
 
     # Sort and print the aggregated counts
@@ -51,7 +61,7 @@ def stanford_info_ext(filepath):
     for team, count in sorted_team_counts:
         sorted_team_dict[team] = count
 
-    result = {"ORGANISATION": sorted_team_dict, "PERSON": sorted_player_dict}
+    result = {"Team": sorted_team_dict, "Player": sorted_player_dict}
 
     return (display, result)
 
@@ -101,8 +111,8 @@ def extract_entities(tweet):
         elif current_entity["tag"] == 'ORGANIZATION':
             team_counts[current_entity["entity"].strip()] += 1
 
-    entities = list(map(lambda x: (x, "PERSON"), player_counts.keys()))
-    entities.extend(list(map(lambda x: (x, "ORGANISATION"), team_counts.keys())))
+    entities = list(map(lambda x: (x, "Player"), player_counts.keys()))
+    entities.extend(list(map(lambda x: (x, "Team"), team_counts.keys())))
     ents = find_entity_positions(tweet, entities)
 
-    return player_counts, team_counts, ents
+    return player_counts, team_counts, entities, ents
