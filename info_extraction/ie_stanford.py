@@ -13,12 +13,12 @@ model_path = os.getenv("STANFORD_NER_PATH") + os.getenv("STANFORD_NER_MODEL")
 
 ner_tagger = StanfordNERTagger(model_path, jar_path, encoding='utf-8')
 
-def stanford_info_ext(filepath):
+def stanford_info_ext(filepath, display=True):
     # Read csv file
     data_text = pd.read_csv(filepath)
-    return run_ie(data_text)
+    return run_ie(data_text, display=display)
 
-def run_ie(data_text, eval=False):
+def run_ie(data_text, eval=False, display=True):
 
     # Data Cleaning
     data_text = data_cleaning(data_text)
@@ -28,8 +28,8 @@ def run_ie(data_text, eval=False):
 
     display_data = []
     eval_result = []
-
-    iterator = data_text["text"] if eval else gr.Progress().tqdm(data_text["text"])
+    
+    iterator = data_text["text"] if not display else gr.Progress().tqdm(data_text["text"])
     for tweet in iterator:
         player_counts, team_counts, entities, ents = extract_entities(tweet)
         eval_result.append(entities)
@@ -48,7 +48,7 @@ def run_ie(data_text, eval=False):
         return eval_result
 
     options = {"ents": ["Team", "Player"], "colors": {"Player": "lightgreen", "Team": "lightblue"}}
-    display = displacy.render(display_data, style="ent", manual=True, options=options)
+    display_code = displacy.render(display_data, style="ent", manual=True, options=options)
 
     # Sort and print the aggregated counts
     sorted_player_counts = sorted(total_player_counts.items(), key=lambda x: x[1], reverse=True)
@@ -63,7 +63,7 @@ def run_ie(data_text, eval=False):
 
     result = {"Team": sorted_team_dict, "Player": sorted_player_dict}
 
-    return (display, result)
+    return (display_code, result)
 
 def find_entity_positions(text, entities):
     displacy_entities = []

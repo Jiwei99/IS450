@@ -18,20 +18,28 @@ def run_ie(data_text, eval=False):
 
     ner = spacy.load("en_core_web_sm")
 
-    ents = data_text["text"].apply(ner)
+    docs = data_text["text"].apply(ner)
 
     processed_entities = []
     eval_result = []
-    for ent in ents:
-        filtered_entities = [(e.text, mapping[e.label_]) for e in ent.ents if e.label_ in labels]
+    for doc in docs:
+        new_ents = []
+        for ent in doc.ents:
+            if ent.label_ in labels:
+                new_ent = spacy.tokens.Span(doc, ent.start, ent.end, label=mapping[ent.label_])
+                new_ents.append(new_ent)
+  
+        doc.ents = new_ents
+
+        filtered_entities = [(e.text, e.label_) for e in doc.ents]
         processed_entities.extend(filtered_entities)
         eval_result.append(filtered_entities)
 
     if eval:
         return eval_result
     
-    options = {"ents": labels}
-    display = spacy.displacy.render(ents, style="ent", minify=True, options=options) 
+    options = {"ents": ["Player", "Team"], "colors": {"Player": "lightgreen", "Team": "lightblue"}}
+    display = spacy.displacy.render(docs, style="ent", minify=True, options=options) 
 
     entity_counts = Counter(processed_entities)
     ranked_entities = entity_counts.most_common()
