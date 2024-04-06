@@ -1,5 +1,8 @@
 # IS450 (Text Mining & Language Processing) Project
 
+## Note
+The deploy version has LDA (Gensim) Topic Modelling disabled due to memory limitations on the deployment site.
+
 ## Description
 This project contains the code for the IS450 Text Mining & Language Processing project.
 
