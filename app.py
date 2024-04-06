@@ -43,11 +43,13 @@ with gr.Blocks() as info_ext:
     with gr.Row():
         with gr.Column():
             ie_file = gr.File(label="File Upload", file_count='single', file_types=['.csv'], type="filepath")
+            msg1 = gr.Markdown("### Select the model here to run the model")
             with gr.Row():
                 run_rules = gr.Button(variant="primary", value=RULES_BASED)
                 run_spacy = gr.Button(variant="primary", value=CNN_RNN)
                 run_stanford = gr.Button(variant="primary", value=CRF)
         with gr.Column():
+            msg2 = gr.Markdown("### Select the model here to view the output")
             ie_radio = gr.Radio([RULES_BASED, CNN_RNN, CRF], label="Model Type", value=RULES_BASED)
             text_rules = gr.JSON(label=RULES_BASED, visible=True)
             text_spacy = gr.JSON(label=CNN_RNN, visible=False)
