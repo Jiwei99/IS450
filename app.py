@@ -92,12 +92,13 @@ def variable_outputs(path, model_type):
     return result
 
 with gr.Blocks() as topic_mod:
+    msg = gr.Markdown("### LDA (Gensim) is disabled due to memory limitations on the deployment site. Please run it locally.")
     with gr.Row():
         with gr.Column():
             ie_file = gr.File(label="File Upload", file_count='single', file_types=['.csv'], type="filepath")
             with gr.Row():
                 run_lda_s = gr.Button(variant="primary", value=LDA_SKLEARN)
-                run_lda_g = gr.Button(variant="primary", value=LDA_GENSIM)
+                run_lda_g = gr.Button(variant="primary", value=LDA_GENSIM, interactive=False)
                 run_lsa_s = gr.Button(variant="primary", value=LSA_SKLEARN)
                 run_nmf_s = gr.Button(variant="primary", value=NMF_SKLEARN)
         with gr.Column():
