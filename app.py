@@ -73,6 +73,9 @@ NMF_SKLEARN = "NMF (SkLearn)"
 
 max_textboxes = 10
 
+def info_fn():
+    gr.Info("""LDA (Gensim) cannot be executed due to memory constraints on the deployment server. Please execute it on your local machine.""")
+
 def variable_outputs(path, model_type):
     imgs = []
     if model_type == LDA_SKLEARN:
@@ -92,13 +95,13 @@ def variable_outputs(path, model_type):
     return result
 
 with gr.Blocks() as topic_mod:
-    msg = gr.Markdown("### LDA (Gensim) is disabled due to memory limitations on the deployment site. Please run it locally.")
     with gr.Row():
         with gr.Column():
             ie_file = gr.File(label="File Upload", file_count='single', file_types=['.csv'], type="filepath")
             with gr.Row():
                 run_lda_s = gr.Button(variant="primary", value=LDA_SKLEARN)
-                run_lda_g = gr.Button(variant="primary", value=LDA_GENSIM, interactive=False)
+                run_lda_g = gr.Button(variant="primary", value="LDA (Gensim)")
+                run_lda_g.click(info_fn, None, None)
                 run_lsa_s = gr.Button(variant="primary", value=LSA_SKLEARN)
                 run_nmf_s = gr.Button(variant="primary", value=NMF_SKLEARN)
         with gr.Column():
@@ -109,7 +112,7 @@ with gr.Blocks() as topic_mod:
                 imgs.append(img)
 
     lds_s_event = run_lda_s.click(lambda path: variable_outputs(path, LDA_SKLEARN), ie_file, imgs)
-    lds_g_event = run_lda_g.click(lambda path: variable_outputs(path, LDA_GENSIM), ie_file, imgs)
+    # lds_g_event = run_lda_g.click(lambda path: variable_outputs(path, LDA_GENSIM), ie_file, imgs)
     lsa_s_event = run_lsa_s.click(lambda path: variable_outputs(path, LSA_SKLEARN), ie_file, imgs)
     nmf_s_event = run_nmf_s.click(lambda path: variable_outputs(path, NMF_SKLEARN), ie_file, imgs)
 
@@ -119,7 +122,7 @@ sent_analy = load_sentiment_analysis_demo()
 
 ######## Integration ########
 
-demo = gr.TabbedInterface([sent_analy, topic_mod, info_ext], ["Sentiment Analysis", "Topic Modeling", "Information Extraction"])
+demo = gr.TabbedInterface([sent_analy, topic_mod, info_ext], ["Sentiment Analysis", "Topic Modeling", "Information Extraction"], title="IS450 G1T8 Project Demonstration")
 
 if __name__ == "__main__":
     demo.queue().launch()
