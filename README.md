@@ -57,8 +57,8 @@ The full IPL 2022 Twitter tweets dataset can be downloaded from `https://www.kag
 
 ## Installation
 1. Clone the repository: `git clone https://github.com/Jiwei99/is450.git`
-2. Navigate to the code folder: `cd code`
-3. Install the dependencies: `pip install requirements.txt`
+2. Navigate to the project folder: `cd is450`
+3. Install the dependencies: `pip install -r requirements.txt`
 
 ## Usage
 1. Run the project: `python app.py`
